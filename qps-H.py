@@ -44,37 +44,10 @@ def analyze_qps(log_file):
     return data
 
 
-def is_time_between(start_time_str, end_time_str, check_time_str):
-    """将字符串转换为时间对象"""
-
-    # 时间格式
-    fmt = '%H'
-
-    start_time = datetime.strptime(start_time_str, fmt).time()
-    end_time = datetime.strptime(end_time_str, fmt).time()
-    check_time = datetime.strptime(check_time_str, fmt).time()
-
-    # 检查时间是否在给定范围内
-    return start_time <= check_time <= end_time
-
-
 data = analyze_qps('access-2024-05-28.log')
 
 # 绘制二维数据
 timestamps, counts = zip(*data)
-
-# 将时间数据,每10分钟数据合并到一起
-new_timestamps = []
-new_counts = []
-for i in range(len(timestamps)):
-
-    # 查看时间范围
-    start_time_str = '06'
-    end_time_str = '18'
-
-    if is_time_between(start_time_str, end_time_str, timestamps[i]):
-        new_timestamps.append(timestamps[i])
-        new_counts.append(counts[i])
 
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
@@ -85,14 +58,14 @@ plt.figure(figsize=(25, 6))
 plt.margins(x=0)
 
 # 按照时间分组显示数据,针对分钟或秒效果好
-plt.plot(new_timestamps, new_counts)
+plt.plot(timestamps, counts)
 
 plt.xticks(rotation=45)
 
 plt.xlabel('时间')
 plt.ylabel('请求数')
 
-plt.title('请求qps统计图')
+plt.title('每小时请求统计图')
 # 调整内边距
 plt.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.1)
 plt.show()

@@ -96,7 +96,7 @@ plt.xticks(rotation=45)
 plt.xlabel('时间')
 plt.ylabel('请求数')
 
-plt.title('请求qps统计图')
+plt.title('每10秒请求统计图')
 # 调整内边距
 plt.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.1)
 plt.show()
