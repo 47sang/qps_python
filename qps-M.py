@@ -19,8 +19,8 @@ def parse_log_line(line):
         # 截取为 :
         # 17/May/2024:14:35
 
-        # 按照秒统计数据
-        timestamp = date.split()[0][12:]
+        # 按照分钟统计数据
+        timestamp = date.split()[0][12:-3]
 
         return timestamp, method, url, status_code
     return None
@@ -48,7 +48,7 @@ def is_time_between(start_time_str, end_time_str, check_time_str):
     """将字符串转换为时间对象"""
 
     # 时间格式
-    fmt = '%H:%M:%S'
+    fmt = '%H:%M'
 
     start_time = datetime.strptime(start_time_str, fmt).time()
     end_time = datetime.strptime(end_time_str, fmt).time()
@@ -69,8 +69,8 @@ new_counts = []
 for i in range(len(timestamps)):
 
     # 查看时间范围
-    start_time_str = '11:35:00'
-    end_time_str = '12:00:00'
+    start_time_str = '06:00'
+    end_time_str = '18:30'
 
     # Y轴分组时间间隔
     intervalTime = 10
@@ -90,7 +90,6 @@ plt.margins(x=0)
 
 # 按照时间分组显示数据,针对分钟或秒效果好
 plt.plot(new_timestamps, new_counts)
-
 plt.xticks(rotation=45)
 
 plt.xlabel('时间')
